@@ -19,6 +19,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+		sh 'cd /var/www/lms'
 		sh 'php app/console cache:clear --env=dev'
 		sh 'php app/console cache:clear --env=prod'
             }
