@@ -1,18 +1,15 @@
-Modulo
+LMS
 ======
 by [asubit](https://github.com/asubit)
 
-This is a simple CMS platform developed with Symfony LTS 2.8.
+This is a simple LMS platform developed with Symfony LTS 2.8.
 
 Architecture
 ------------
 
-- Page
-- Category
-- Article
-- Menu
-- MenuLink
-- MenuWidget
+- Lesson
+- Chapter
+- Exercise
 
 Symfony Standard Edition 2.8
 --------------
