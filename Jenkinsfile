@@ -18,10 +18,14 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
-		sh 'cd /var/www/lms'
-		sh 'php app/console cache:clear --env=dev'
+                echo '==> Deploying....'
+		echo '==> [1.] COMPOSER INSTALL'
+		sh 'composer install'
+		echo '==> [2.] APPLY USER RIGHT ACCESS TO CACHE AND LOGS'
+		sh 'chmod -R 777 app/cache app/logs'
+		echo '==> [3.] SYMFONY CACHE GENERATION'
 		sh 'php app/console cache:clear --env=prod'
+		echo '==> End deploy'
             }
         }
     }
