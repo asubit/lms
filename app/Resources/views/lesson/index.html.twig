@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>All lessons</h1>
+
+    <div class="row">
+        {% for lesson in lessons %}
+            <div class="col-md-6 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a href="{{ path('lesson_show', { 'id': lesson.id }) }}">{{ lesson.name }}</a>
+                            {% if app.user and lesson.author is defined %}
+                                {% if app.user.username == lesson.author.username %}
+                                    <a href="{{ path('lesson_edit', { 'id': lesson.id }) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                {% endif %}
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ lesson.content }}</p>
+                        <p>{% if lesson.duration %}<span class="glyphicon glyphicon-time"></span> {{ lesson.duration|date('H:i:s') }}{% endif %}</p>
+                        <p><span class="glyphicon glyphicon-play"></span> <a href="{{ path('lesson_show', { 'id': lesson.id }) }}">Start this lesson</a></p>
+                    </div>
+                    <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> Knowledge shared by {% if lesson.author %}{{ lesson.author.username }}{% else %}anonymous{% endif %}.</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

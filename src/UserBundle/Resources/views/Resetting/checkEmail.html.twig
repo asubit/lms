@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div class="form-container">
+	<p class="registration-check-email-text">{{ 'resetting.check_email'|trans({'%email%': email}) }}</p>
+	<p><a id="btn-ok" class="btn btn-lg btn-primary btn-block" href="{{ path('fos_user_security_login') }}">OK</a></p>
+</div>
+{% endblock %}

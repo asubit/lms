@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Create a lesson</div>
+                <div class="panel-body">
+                    <p>Contribute and share your knowledge.</p>
+                    <p><a href="{{ path('lesson_new') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Create a lesson</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Learn existing lesson</div>
+                <div class="panel-body">
+                    <p>Add some knowledge to yours.</p>
+                    <p><a href="{{ path('lesson_index') }}" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span> Find a lesson</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

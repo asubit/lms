@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: lms
+    database_user: root
+    database_password: null
+    mailer_transport: mail
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    secret: secretToken
+    locale: fr
