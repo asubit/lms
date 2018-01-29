@@ -1,50 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Lesson edit</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ path('index') }}">Home</a></li>
+        <li><a href="{{ path('lesson_index') }}">Lesson list</a></li>
+        <li><a href="{{ path('lesson_show', {'id': lesson.id}) }}">{{ lesson.name }}</a></li>
+        <li class="active">Edit</li>
+    </ol>
 
-    {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <h1>{{ lesson.name }} <small>edit</small></h1>
 
-    {% if lesson.chapters|length > 0 %}
-        {% for lessonChapter in lesson.chapters %}
-            <h2>Chapter {{ lessonChapter.number }}</h2>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>Number</th>
-                            <td>{{ lessonChapter.number }}</td>
-                        </tr>
-                        <tr>
-                            <th>Title</th>
-                            <td>{{ lessonChapter.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Content</th>
-                            <td>{{ lessonChapter.content }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% endfor %}
+    {% if app.user %}
+        {% if (is_granted('ROLE_ADMIN')) or (lesson.author.id == app.user.id) %}
+            {{ form_start(delete_form) }}
+                <button type="submit">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete
+                </button>
+            {{ form_end(delete_form) }}
+        {% endif %}
     {% endif %}
 
+    {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        <label for="lesson_name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lesson_theme" class="col-sm-2 control-label">Theme</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.theme, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lesson_description" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.description, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lesson_content" class="col-sm-2 control-label">Content</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.content, { 'attr': {'class': 'form-control tinymce'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lesson_duration" class="col-sm-2 control-label">Duration</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.duration, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    {{ form_widget(edit_form) }}
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Edit</button>
+    {{ form_end(edit_form) }}
 
-
-    <ul>
-        <li>
-            <a href="{{ path('lesson_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <h2>Chapter list</h2>
+    {% if lesson.chapters|length > 0 %}
+        <table class="table">
+            <tbody>
+                {% for lessonChapter in lesson.chapters %}
+                    <tr>
+                        <td>#{{ lessonChapter.number }}</td>
+                        <td>
+                            <a href="{{ path('chapter_show', {'id': lessonChapter.id}) }}">{{ lessonChapter.name }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('chapter_edit', {'id': lessonChapter.id}) }}" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No chapter for this lesson. <a href="{{ path('chapter_new') }}">Add a chapter</a> now!</p>
+    {% endif %}
 {% endblock %}

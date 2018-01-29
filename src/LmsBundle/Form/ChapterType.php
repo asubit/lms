@@ -16,8 +16,12 @@ class ChapterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('lesson', EntityType::class, array(
+                'class' => 'LmsBundle:Lesson',
+                'choice_label' => 'name',
+            ))
             ->add('number')
+            ->add('name')
             ->add('content')
         ;
     }

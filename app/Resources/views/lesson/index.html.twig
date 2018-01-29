@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>All lessons</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ path('index') }}">Home</a></li>
+        <li class="active">Lesson list</li>
+    </ol>
+
+    <h1>Lesson list</h1>
 
     <div class="row">
         {% for lesson in lessons %}
@@ -18,11 +23,28 @@
                         </h2>
                     </div>
                     <div class="panel-body">
-                        <p>{{ lesson.content }}</p>
-                        <p>{% if lesson.duration %}<span class="glyphicon glyphicon-time"></span> {{ lesson.duration|date('H:i:s') }}{% endif %}</p>
-                        <p><span class="glyphicon glyphicon-play"></span> <a href="{{ path('lesson_show', { 'id': lesson.id }) }}">Start this lesson</a></p>
+                        <p>
+                            {{ lesson.content|slice(0, 200) }}{% if lesson.content|length > 200 %}...{% endif %}
+                        </p>
+                        <p>
+                            {% if lesson.duration %}
+                                <span class="glyphicon glyphicon-time"></span> {{ lesson.duration|date('H:i:s') }}
+                            {% endif %}
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-play"></span>
+                            <a href="{{ path('lesson_show', { 'id': lesson.id }) }}">Start this lesson</a>
+                        </p>
                     </div>
-                    <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> Knowledge shared by {% if lesson.author %}{{ lesson.author.username }}{% else %}anonymous{% endif %}.</div>
+                    <div class="panel-footer">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Knowledge shared by
+                        {% if lesson.author %}
+                            {{ lesson.author.username }}
+                        {% else %}
+                            anonymous
+                        {% endif %}.
+                    </div>
                 </div>
             </div>
         {% endfor %}

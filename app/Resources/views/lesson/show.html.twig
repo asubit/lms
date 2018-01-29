@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('index') }}">Home</a></li>
+        <li><a href="{{ path('lesson_index') }}">Lesson list</a></li>
+        <li class="active">{{ lesson.name }}</li>
+    </ol>
+
     <div class="row">
         <div class="col-md-2" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
             <div class="list-group">
@@ -12,7 +18,7 @@
             </div>
         </div>
         <div class="col-md-10">
-            <h1>Lesson</h1>
+            <h1>{{ lesson.name }}</h1>
             <table>
                 <tbody>
                 <tr>

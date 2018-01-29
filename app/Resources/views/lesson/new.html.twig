@@ -1,16 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('index') }}">Home</a></li>
+        <li><a href="{{ path('lesson_index') }}">Lesson list</a></li>
+        <li class="active">Lesson creation</li>
+    </ol>
+
     <h1>Lesson creation</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="form-group">
+            <label for="lesson_name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lesson_theme" class="col-sm-2 control-label">Theme</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.theme, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lesson_description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lesson_content" class="col-sm-2 control-label">Content</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.content, { 'attr': {'class': 'form-control tinymce'} }) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lesson_duration" class="col-sm-2 control-label">Duration</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.duration, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Create</button>
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('lesson_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
